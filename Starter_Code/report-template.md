@@ -2,8 +2,6 @@
 
 ## Overview of the Analysis
 
-In this section, describe the analysis you completed for the machine learning models used in this Challenge. This might include:
-
 The purpose of this analysis is to address the challenge of credit risk classification, a problem inherently characterized by imbalanced classes. The goal is to build a machine learning model using logistic regression to predict the creditworthiness of borrowers. Given the nature of credit risk, where healthy loans significantly outnumber risky loans, the analysis focuses on techniques to handle imbalanced classes and evaluates the model's performance in predicting high-risk loans.
 
 The dataset used contains historical lending activity from a peer-to-peer lending services company. The primary financial information includes features such as loan size, interest rate, borrower income, debt-to-income ratio, number of accounts, derogatory marks, and total debt. The target variable, "loan_status," is binary, where 0 denotes a healthy loan, and 1 indicates a high risk of default. The objective is to predict the likelihood of a loan being high-risk based on the given financial features.
@@ -26,26 +24,33 @@ Logistic Regression: Utilized logistic regression as the primary machine learnin
 RandomOverSampler: Applied oversampling using the RandomOverSampler module from imbalanced-learn to address the imbalance in the target variable. This technique ensures that both classes have an equal number of data points, providing a more balanced training set for the model.
 ## Results
 
-Using bulleted lists, describe the balanced accuracy scores and the precision and recall scores of all machine learning models.
 Machine Learning Model 1:
 
-Balanced Accuracy Score: 94.4%
-Precision (High-Risk Loans): 87%
-Recall (High-Risk Loans): 89%
-Precision (Healthy Loans): 100%
-Recall (Healthy Loans): 100%
+-Balanced Accuracy Score: 94.4%
+
+-Precision (High-Risk Loans): 87%
+
+-Recall (High-Risk Loans): 89%
+
+-Precision (Healthy Loans): 100%
+
+-Recall (Healthy Loans): 100%
 
 
 Machine Learning Model 2:
 
-Balanced Accuracy Score: 99.6%
-Precision (High-Risk Loans): 87%
-Recall (High-Risk Loans): 100%
-Precision (Healthy Loans): 100%
-Recall (Healthy Loans): 100%
+-Balanced Accuracy Score: 99.6%
+
+-Precision (High-Risk Loans): 87%
+
+-Recall (High-Risk Loans): 100%
+
+-Precision (Healthy Loans): 100%
+
+-Recall (Healthy Loans): 100%
+
 ## Summary
 
-Summarize the results of the machine learning models, and include a recommendation on the model to use, if any. For example:
 The machine learning models were evaluated based on their balanced accuracy, precision, and recall scores for predicting credit risk. The two models, trained on the original and oversampled data, exhibited distinct performances.
 
 Model 1: Achieved a balanced accuracy of 94.4%, demonstrating strong predictive capabilities. It maintained a good balance between precision and recall for both high-risk and healthy loans.
