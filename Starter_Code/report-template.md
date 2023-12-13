@@ -9,11 +9,17 @@ The purpose of this analysis is to address the challenge of credit risk classifi
 The dataset used contains historical lending activity from a peer-to-peer lending services company. The primary financial information includes features such as loan size, interest rate, borrower income, debt-to-income ratio, number of accounts, derogatory marks, and total debt. The target variable, "loan_status," is binary, where 0 denotes a healthy loan, and 1 indicates a high risk of default. The objective is to predict the likelihood of a loan being high-risk based on the given financial features.
 
 1.Data Preprocessing: Reading the dataset from a CSV file, separating features and labels, and checking the balance of the target variable.
+
 2.Data Splitting: Dividing the data into training and testing sets using the train_test_split function.
+
 3.Model Training (Original Data): Fitting a logistic regression model using the original training data.
+
 4.Model Evaluation (Original Data): Predicting on the testing data and evaluating the model's performance using accuracy, confusion matrix, and classification report metrics.
+
 5.Resampling (Oversampling): Using RandomOverSampler from imbalanced-learn to address class imbalance.
+
 6.Model Training (Resampled Data): Fitting a logistic regression model using the oversampled training data.
+
 7.Model Evaluation (Resampled Data): Predicting on the testing data and evaluating the performance metrics for the resampled model.
 
 Logistic Regression: Utilized logistic regression as the primary machine learning model due to its effectiveness in binary classification problems.
