@@ -4,28 +4,49 @@
 
 In this section, describe the analysis you completed for the machine learning models used in this Challenge. This might include:
 
-* Explain the purpose of the analysis.
-* Explain what financial information the data was on, and what you needed to predict.
-* Provide basic information about the variables you were trying to predict (e.g., `value_counts`).
-* Describe the stages of the machine learning process you went through as part of this analysis.
-* Briefly touch on any methods you used (e.g., `LogisticRegression`, or any resampling method).
+The purpose of this analysis is to address the challenge of credit risk classification, a problem inherently characterized by imbalanced classes. The goal is to build a machine learning model using logistic regression to predict the creditworthiness of borrowers. Given the nature of credit risk, where healthy loans significantly outnumber risky loans, the analysis focuses on techniques to handle imbalanced classes and evaluates the model's performance in predicting high-risk loans.
 
+The dataset used contains historical lending activity from a peer-to-peer lending services company. The primary financial information includes features such as loan size, interest rate, borrower income, debt-to-income ratio, number of accounts, derogatory marks, and total debt. The target variable, "loan_status," is binary, where 0 denotes a healthy loan, and 1 indicates a high risk of default. The objective is to predict the likelihood of a loan being high-risk based on the given financial features.
+
+1.Data Preprocessing: Reading the dataset from a CSV file, separating features and labels, and checking the balance of the target variable.
+2.Data Splitting: Dividing the data into training and testing sets using the train_test_split function.
+3.Model Training (Original Data): Fitting a logistic regression model using the original training data.
+4.Model Evaluation (Original Data): Predicting on the testing data and evaluating the model's performance using accuracy, confusion matrix, and classification report metrics.
+5.Resampling (Oversampling): Using RandomOverSampler from imbalanced-learn to address class imbalance.
+6.Model Training (Resampled Data): Fitting a logistic regression model using the oversampled training data.
+7.Model Evaluation (Resampled Data): Predicting on the testing data and evaluating the performance metrics for the resampled model.
+
+Logistic Regression: Utilized logistic regression as the primary machine learning model due to its effectiveness in binary classification problems.
+RandomOverSampler: Applied oversampling using the RandomOverSampler module from imbalanced-learn to address the imbalance in the target variable. This technique ensures that both classes have an equal number of data points, providing a more balanced training set for the model.
 ## Results
 
 Using bulleted lists, describe the balanced accuracy scores and the precision and recall scores of all machine learning models.
+Machine Learning Model 1:
 
-* Machine Learning Model 1:
-  * Description of Model 1 Accuracy, Precision, and Recall scores.
+Balanced Accuracy Score: 94.4%
+Precision (High-Risk Loans): 87%
+Recall (High-Risk Loans): 89%
+Precision (Healthy Loans): 100%
+Recall (Healthy Loans): 100%
 
 
+Machine Learning Model 2:
 
-* Machine Learning Model 2:
-  * Description of Model 2 Accuracy, Precision, and Recall scores.
-
+Balanced Accuracy Score: 99.6%
+Precision (High-Risk Loans): 87%
+Recall (High-Risk Loans): 100%
+Precision (Healthy Loans): 100%
+Recall (Healthy Loans): 100%
 ## Summary
 
 Summarize the results of the machine learning models, and include a recommendation on the model to use, if any. For example:
-* Which one seems to perform best? How do you know it performs best?
-* Does performance depend on the problem we are trying to solve? (For example, is it more important to predict the `1`'s, or predict the `0`'s? )
+The machine learning models were evaluated based on their balanced accuracy, precision, and recall scores for predicting credit risk. The two models, trained on the original and oversampled data, exhibited distinct performances.
 
-If you do not recommend any of the models, please justify your reasoning.
+Model 1: Achieved a balanced accuracy of 94.4%, demonstrating strong predictive capabilities. It maintained a good balance between precision and recall for both high-risk and healthy loans.
+
+Model 2: Outperformed Model 1 with a remarkable balanced accuracy of 99.6%. It significantly improved precision and recall for high-risk loans, achieving near-perfection in identifying high-risk loans without introducing false positives.
+
+Recommendation:
+
+Considering the exceptional performance of Model 2, especially in correctly identifying high-risk loans, it is recommended for use in credit risk classification. The oversampling technique employed in Model 2, using RandomOverSampler, effectively addressed the imbalance in the dataset and led to a more robust model.
+
