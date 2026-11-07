@@ -1,61 +1,35 @@
-# Module-12-Challenge
-## Overview of the Analysis
+# Credit risk: catching more high-risk loans
 
-The purpose of this analysis is to address the challenge of credit risk classification, a problem inherently characterized by imbalanced classes. The goal is to build a machine learning model using logistic regression to predict the creditworthiness of borrowers. Given the nature of credit risk, where healthy loans significantly outnumber risky loans, the analysis focuses on techniques to handle imbalanced classes and evaluates the model's performance in predicting high-risk loans.
+This Python project asks what happens when a logistic regression model sees more examples of a rare class during training. It compares two models on the same held-out loans from the supplied course dataset. The only change in training strategy is whether to duplicate minority-class examples.
 
-The dataset used contains historical lending activity from a peer-to-peer lending services company. The primary financial information includes features such as loan size, interest rate, borrower income, debt-to-income ratio, number of accounts, derogatory marks, and total debt. The target variable, "loan_status," is binary, where 0 denotes a healthy loan, and 1 indicates a high risk of default. The objective is to predict the likelihood of a loan being high-risk based on the given financial features.
+## Run the comparison
 
-1.Data Preprocessing: Reading the dataset from a CSV file, separating features and labels, and checking the balance of the target variable.
+From the repository root, use Python 3.11 or 3.12:
 
-2.Data Splitting: Dividing the data into training and testing sets using the train_test_split function.
+```sh
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+python credit_risk.py
+python -m unittest -v
+```
 
-3.Model Training (Original Data): Fitting a logistic regression model using the original training data.
+On Windows PowerShell, activate with `.\.venv\Scripts\Activate.ps1`. The script reads the included CSV and prints the comparison; no account or dataset download is needed. To explore interactively, install JupyterLab with `python -m pip install jupyterlab` in the same environment, then run `jupyter lab credit_risk_resampling.ipynb` from the repository root.
 
-4.Model Evaluation (Original Data): Predicting on the testing data and evaluating the model's performance using accuracy, confusion matrix, and classification report metrics.
+## What the results show
 
-5.Resampling (Oversampling): Using RandomOverSampler from imbalanced-learn to address class imbalance.
+| Training data | Balanced accuracy | High-risk precision | High-risk recall | Healthy loans flagged | High-risk loans missed |
+|---|---:|---:|---:|---:|---:|
+| Original | 98.64% | 87.16% | 97.76% | 90 | 14 |
+| Oversampled | 99.58% | 86.53% | 99.68% | 97 | 2 |
 
-6.Model Training (Resampled Data): Fitting a logistic regression model using the oversampled training data.
+On this split, oversampling caught 12 more high-risk loans while incorrectly flagging 7 more healthy loans. Recall rose, but precision fell slightly: finding more risky cases came at a cost. Balanced accuracy averages recall across both classes so that the more common healthy class does not dominate the score.
 
-7.Model Evaluation (Resampled Data): Predicting on the testing data and evaluating the performance metrics for the resampled model.
+## Follow the code
 
-Logistic Regression: Utilized logistic regression as the primary machine learning model due to its effectiveness in binary classification problems.
-RandomOverSampler: Applied oversampling using the RandomOverSampler module from imbalanced-learn to address the imbalance in the target variable. This technique ensures that both classes have an equal number of data points, providing a more balanced training set for the model.
-## Results
+1. [The dataset](Starter_Code/Resources/lending_data.csv) contains seven numeric inputs, including loan size, borrower income and total debt. The target is loan_status: 0 for healthy or 1 for high risk.
+2. In [credit_risk.py](credit_risk.py), `compare` reserves a stratified 25% test set with a fixed seed. `balance_training` duplicates randomly selected rows from the minority class until the training classes are equally frequent.
+3. Each model fits its own standard scaler and logistic regression using training data only. Both predict on the untouched test set. The [notebook](credit_risk_resampling.ipynb) calls that same code and shows the class counts alongside the results.
+4. [The tests](test_credit_risk.py) check which examples are duplicated and verify the direction of false positives and missed cases using a hand-calculated example.
 
-Machine Learning Model 1:
-
--Balanced Accuracy Score: 94.4%
-
--Precision (High-Risk Loans): 87%
-
--Recall (High-Risk Loans): 89%
-
--Precision (Healthy Loans): 100%
-
--Recall (Healthy Loans): 100%
-
-
-Machine Learning Model 2:
-
--Balanced Accuracy Score: 99.6%
-
--Precision (High-Risk Loans): 87%
-
--Recall (High-Risk Loans): 100%
-
--Precision (Healthy Loans): 100%
-
--Recall (Healthy Loans): 100%
-
-## Summary
-
-The machine learning models were evaluated based on their balanced accuracy, precision, and recall scores for predicting credit risk. The two models, trained on the original and oversampled data, exhibited distinct performances.
-
-Model 1: Achieved a balanced accuracy of 94.4%, demonstrating strong predictive capabilities. It maintained a good balance between precision and recall for both high-risk and healthy loans.
-
-Model 2: Outperformed Model 1 with a remarkable balanced accuracy of 99.6%. It significantly improved precision and recall for high-risk loans, achieving near-perfection in identifying high-risk loans without introducing false positives.
-
-Recommendation:
-
-Considering the exceptional performance of Model 2, especially in correctly identifying high-risk loans, it is recommended for use in credit risk classification. The oversampling technique employed in Model 2, using RandomOverSampler, effectively addressed the imbalance in the dataset and led to a more robust model.
+This is a classroom experiment on one random split. The CSV has no borrower identifier or time column to test performance on new borrowers or later loans. These results do not establish suitability for lending decisions.
